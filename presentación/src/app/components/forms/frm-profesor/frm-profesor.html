@@ -1,0 +1,134 @@
+<h2 mat-dialog-title class="text-center">Formulario Profesores<h2>
+<mat-dialog-content>
+    <form id="miFormulario" [formGroup]="myForm" (ngSubmit)="onGuardar();">
+        <div class="flex flex-col me-3">
+
+            <mat-form-field>
+                <mat-label>Id Profesor</mat-label>
+                <input formControlName="idProfesor" matInput type="text">
+            </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Nombre</mat-label>
+                    <input formControlName="nombre" matInput>
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>Apellido 1</mat-label>
+                    <input formControlName="apellido1" matInput type="text">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Apellido 2</mat-label>
+                    <input formControlName="apellido2" matInput type="text">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Telefono</mat-label>
+                    <input formControlName="telefono" matInput type="text">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Correo</mat-label>
+                    <input formControlName="correo" matInput type="text">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Dirección</mat-label>
+                    <input formControlName="direccion" matInput type="text">
+                </mat-form-field>
+
+                
+            
+            @if(F['idProfesor'].invalid && F['idProfesor'].touched){
+                @if(F['idProfesor'].errors!['required']) {
+                    <small class="text-red-600">El ID de profesor es obligatorio.</small>
+                }
+                @if(F['idProfesor'].errors!['minlength'] || F['idProfesor'].errors!['maxlength']) {
+                    <small class="text-red-600">El ID debe tener entre 2 y 15 caracteres.</small>
+                }
+                @if(F['idProfesor'].errors!['pattern']) {
+                    <small class="text-red-600">El ID solo puede contener letras y números.</small>
+                }
+            }
+
+            @if(F['nombre'].invalid && F['nombre'].touched){
+                @if(F['nombre'].errors!['required']) {
+                    <small class="text-red-600">El nombre es obligatorio.</small>
+                }
+                @if(F['nombre'].errors!['minlength'] || F['nombre'].errors!['maxlength']) {
+                    <small class="text-red-600">El nombre debe tener entre 3 y 30 caracteres.</small>
+                }
+                @if(F['nombre'].errors!['pattern']) {
+                    <small class="text-red-600">El nombre solo puede contener letras.</small>
+                }
+            }
+
+            @if(F['apellido1'].invalid && F['apellido1'].touched){
+                @if(F['apellido1'].errors!['required']) {
+                    <small class="text-red-600">El apellido 1 es obligatorio.</small>
+                }
+                @if(F['apellido1'].errors!['minlength'] || F['apellido1'].errors!['maxlength']) {
+                    <small class="text-red-600">El apellido 1 debe tener entre 3 y 15 caracteres.</small>
+                }
+                @if(F['apellido1'].errors!['pattern']) {
+                    <small class="text-red-600">El apellido 1 solo puede contener letras.</small>
+                }
+            }
+
+            @if(F['apellido2'].invalid && F['apellido2'].touched){
+                @if(F['apellido2'].errors!['required']) {
+                    <small class="text-red-600">El apellido 2 es obligatorio.</small>
+                }
+                @if(F['apellido2'].errors!['minlength'] || F['apellido2'].errors!['maxlength']) {
+                    <small class="text-red-600">El apellido 2 debe tener entre 3 y 15 caracteres.</small>
+                }
+                @if(F['apellido2'].errors!['pattern']) {
+                    <small class="text-red-600">El apellido 2 solo puede contener letras.</small>
+                }
+            }
+
+            @if(F['telefono'].invalid && F['telefono'].touched){
+                @if(F['telefono'].errors!['required']) {
+                    <small class="text-red-600">El teléfono es obligatorio.</small>
+                }
+                @if(F['telefono'].errors!['minlength'] || F['telefono'].errors!['maxlength']) {
+                    <small class="text-red-600">El teléfono debe tener entre 8 y 9 caracteres.</small>
+                }
+                @if(F['telefono'].errors!['pattern']) {
+                    <small class="text-red-600">El teléfono solo puede contener números.</small>
+                }
+            }
+
+            @if(F['correo'].invalid && F['correo'].touched){
+                @if(F['correo'].errors!['required']) {
+                    <small class="text-red-600">El correo electrónico es obligatorio.</small>
+                }
+                @if(F['correo'].errors!['email']) {
+                    <small class="text-red-600">Ingrese un formato de correo electrónico válido.</small>
+                }
+                @if(F['correo'].errors!['maxlength']) {
+                    <small class="text-red-600">El correo electrónico no debe exceder los 100 caracteres.</small>
+                }
+            }
+
+            @if(F['direccion'].invalid && F['direccion'].touched){
+                @if(F['direccion'].errors!['minlength']) {
+                    <small class="text-red-600">La dirección debe tener al menos 4 caracteres.</small>
+                }
+                @if(F['direccion'].errors!['maxlength']) {
+                    <small class="text-red-600">La dirección no debe exceder los 255 caracteres.</small>
+                }
+            }
+
+        </div>
+        <input type="hidden" formControlName="id">
+
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button type="submit" form="miFormulario" mat-button><mat-icon>save</mat-icon>Guardar</button>
+    <button mat-button [mat-dialog-close]="false"><mat-icon>cancel</mat-icon>cerrar</button>
+</mat-dialog-actions>

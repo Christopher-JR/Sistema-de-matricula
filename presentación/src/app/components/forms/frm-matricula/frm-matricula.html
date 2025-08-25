@@ -1,0 +1,69 @@
+<h2 mat-dialog-title class="text-center">Formulario Matrícula</h2>
+<mat-dialog-content>
+    <form id="miFormulario" [formGroup]="myForm" (ngSubmit)="onGuardar();">
+        <div class="flex flex-col me-3">
+
+            <mat-form-field>
+                <mat-label>Id Estudiante</mat-label>
+                <input formControlName="idEstudiante" matInput type="text">
+            </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Id Grupo</mat-label>
+                    <input formControlName="idGrupo" matInput>
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>Fecha Matrícula</mat-label>
+                    <input formControlName="fechaMatricula" matInput type="text">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Estado</mat-label>
+                    <input formControlName="estado" matInput type="text">
+                </mat-form-field>
+
+                @if(F['idEstudiante'].invalid && F['idEstudiante'].touched){
+                    @if(F['idEstudiante'].errors!['required']) {
+                        <small class="text-red-600">El ID de estudiante es obligatorio.</small>
+                    }
+                    @if(F['idEstudiante'].errors!['minlength'] || F['idEstudiante'].errors!['maxlength']) {
+                        <small class="text-red-600">El ID de estudiante debe tener hasta 15 caracteres.</small>
+                    }
+                    @if(F['idEstudiante'].errors!['pattern']) {
+                        <small class="text-red-600">El ID de estudiante solo puede contener letras y números.</small>
+                    }
+                }
+
+                @if(F['idGrupo'].invalid && F['idGrupo'].touched){
+                    @if(F['idGrupo'].errors!['required']) {
+                        <small class="text-red-600">El ID del grupo es obligatorio.</small>
+                    }
+                    @if(F['idGrupo'].errors!['pattern']) {
+                        <small class="text-red-600">El ID del grupo solo puede contener números.</small>
+                    }
+                }
+
+                @if(F['fechaMatricula'].invalid && F['fechaMatricula'].touched){
+                    @if(F['fechaMatricula'].errors!['minlength'] || F['fechaMatricula'].errors!['maxlength']) {
+                        <small class="text-red-600">La fecha de matrícula debe tener 10 caracteres.</small>
+                    }
+                }
+
+                @if(F['estado'].invalid && F['estado'].touched){
+                    @if(F['estado'].errors!['maxlength']) {
+                        <small class="text-red-600">El estado no debe exceder los 20 caracteres.</small>
+                    }
+                }
+
+        </div>
+        <input type="hidden" formControlName="id">
+
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button type="submit" form="miFormulario" mat-button><mat-icon>save</mat-icon>Guardar</button>
+    <button mat-button [mat-dialog-close]="false"><mat-icon>cancel</mat-icon>cerrar</button>
+</mat-dialog-actions>

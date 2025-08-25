@@ -1,0 +1,7 @@
+mysql/
+presentacion/
+node_modules/
+mysql/mysql.sock
+mysql/auto.cnf
+mysql/binlog.index
+mysql/ib_buffer_pool

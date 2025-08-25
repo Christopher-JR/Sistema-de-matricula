@@ -1,0 +1,113 @@
+<h2 mat-dialog-title class="text-center">Formulario Curso</h2>
+<mat-dialog-content>
+    <form id="miFormulario" [formGroup]="myForm" (ngSubmit)="onGuardar();">
+
+        <div class="flex flex-col me-3">
+            <mat-form-field>
+                <mat-label>Código</mat-label>
+                <input formControlName="codigo" matInput type="text">
+            </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Nombre</mat-label>
+                    <input formControlName="nombre" matInput>
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>Descripción</mat-label>
+                    <input formControlName="descripcion" matInput type="text">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Duración</mat-label>
+                    <input formControlName="duracion" matInput type="text">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Cupo Máximo</mat-label>
+                    <input formControlName="cupoMaximo" matInput type="text">
+                </mat-form-field>
+        </div>
+            
+            
+            @if(F['codigo'].invalid && F['codigo'].touched) {
+                @if(F['codigo'].errors!['required']) {
+                    <small class="text-red-600">El código es obligatorio</small>
+                }
+
+                @if(F['codigo'].errors!['minlength']) {
+                    <small class="text-red-600">Entre 2 y 30 caracteres de largo</small>
+                }
+
+                @if(F['codigo'].errors!['maxlength']) {
+                    <small class="text-red-600">Entre 2 y 30 caracteres de largo</small>
+                }
+
+                @if(F['codigo'].errors!['pattern']) {
+                    <small class="text-red-600">Formato de codigo no válido</small>
+                }
+            }
+            
+            <br>
+            @if(F['nombre'].invalid && F['nombre'].touched) {
+                @if(F['nombre'].errors!['required']) {
+                    <small class="text-red-600">El nombre es obligatorio</small>
+                }
+
+                @if(F['nombre'].errors!['minlength']) {
+                    <small class="text-red-600">El nombre debe tener más de 2 caracteres</small>
+                }                
+
+                @if(F['nombre'].errors!['pattern']) {
+                    <small class="text-red-600">Formato de nombre no válido</small>
+                }
+            }
+
+            <br>
+            @if(F['descripcion'].invalid && F['descripcion'].touched) {
+               
+
+                @if(F['descripcion'].errors!['minlength']) {
+                    <small class="text-red-600">El nombre debe tener más de 3 caracteres</small>
+                } 
+                
+                @if(F['descripcion'].errors!['maxlength']) {
+                    <small class="text-red-600">La descripción debe tener menos de 30 caracteres</small>
+                } 
+            }
+
+            <br>
+            @if(F['duracion'].invalid && F['duracion'].touched) {
+               
+                @if(F['duracion'].errors!['required']) {
+                    <small class="text-red-600">La duración es obligatoria</small>
+                }
+                
+                @if(F['duracion'].errors!['pattern']) {
+                    <small class="text-red-600">La duracion debe tener solo números</small>
+                } 
+            }
+
+            <br>
+            @if(F['cupoMaximo'].invalid && F['cupoMaximo'].touched) {
+               
+                @if(F['cupoMaximo'].errors!['required']) {
+                    <small class="text-red-600">El cupo máximo es obligatoria</small>
+                }
+                
+                @if(F['duracion'].errors!['pattern']) {
+                    <small class="text-red-600">El cupo máximo debe tener solo números</small>
+                } 
+            }
+
+        
+        <input type="hidden" formControlName="id">
+
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button type="submit" form="miFormulario" mat-button><mat-icon>save</mat-icon>Guardar</button>
+    <button mat-button [mat-dialog-close]="false"><mat-icon>cancel</mat-icon>cerrar</button>
+</mat-dialog-actions>

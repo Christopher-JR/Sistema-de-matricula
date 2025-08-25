@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>
+    Cambiar Contraseña
+</h1>
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+    <form id="miformulario" [formGroup]="frmChange" (ngSubmit)="onChangePassw()">
+        <mat-form-field class="w-full">
+            <mat-label>Contraseña actual</mat-label>
+            <input matInput type="password" formControlName="passw" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="w-full">
+            <mat-label>Nueva contraseña</mat-label>
+            <input matInput type="password" formControlName="passwN" required>
+        </mat-form-field>
+
+        <mat-divider></mat-divider>
+        <br>
+        <button mat-raised-button color="primary" type="submit" [disabled]="frmChange.invalid">Cambiar</button>
+        <button mat-button type="button" (click)="dialogRef.close()">Cancelar</button>
+        <div *ngIf="error" style="color:red;">Error al cambiar la contraseña</div>
+    </form>
+</mat-dialog-content>
+

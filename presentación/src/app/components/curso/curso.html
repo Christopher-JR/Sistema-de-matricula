@@ -1,0 +1,135 @@
+<mat-card >
+    <div class="p-6 bg-amber-950  border-gray-200 rounded-lg
+    shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <mat-card-header class="bg-gray-200 h-15 flex justify-center">
+            <img mat-card-avatar>
+            <mat-card-title class="!font-extrabold text-[1.5rem]">
+                Catálogo Cursos
+            </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="relative overflow-x-auto shadow-md sm:rounded-lg">
+           
+            <mat-expansion-panel (opened) = "panelOpenState.set(true)"
+                (closed) = "panelOpenState.set(false); limpiar();">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Filtrar - click  para {{panelOpenState() ? 'cerrar' : 'Abrir'}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-form-field class="me-3">
+                    <mat-label>Código</mat-label>
+                    <input matInput #fcodigo id = "fcodigo"
+                    (keyup)="onFiltroChange({
+                        codigo : fcodigo.value,
+                        nombre : fnombre.value
+                    })">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label> Nombre</mat-label>
+                    <input matInput #fnombre id = "fnombre"
+                    (keyup)="onFiltroChange({
+                        codigo : fcodigo.value,
+                        nombre : fnombre.value
+                    })">
+                </mat-form-field>
+                
+
+        </mat-expansion-panel>
+
+
+            <table mat-table [dataSource]="dataSource()">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <ng-container matColumnDef="idCurso"> 
+                        <th mat-header-cell *matHeaderCellDef>idCurso</th> 
+                        <td mat-cell *matCellDef="let element">{{element.id}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="codigo">
+                        <th mat-header-cell *matHeaderCellDef>Código</th>
+                        <td mat-cell *matCellDef="let element">{{element.codigo}}</td> 
+                    </ng-container>
+
+                    <ng-container matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                        <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="descripcion">
+                        <th mat-header-cell *matHeaderCellDef>Descripción</th>
+                        <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="duracion">
+                        <th mat-header-cell *matHeaderCellDef>Duración</th>
+                        <td mat-cell *matCellDef="let element">{{element.duracion}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cupoMaximo">
+                        <th mat-header-cell *matHeaderCellDef>Cupo Máximo</th>
+                        <td mat-cell *matCellDef="let element">{{element.cupoMaximo}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="botonera">
+                        <th mat-header-cell *matHeaderCellDef style="text-align : center;">
+                            @if(srvAuth.userActualS().rol === 1) {
+                                <button matMiniFab (click)= "onNuevo();" class="!text-white !bg-blue-700 hover:!bg-blue-800 focus:ring-4 focus:!ring-blue-300
+                                    font-medium rounded-lg text-sm px-9 py-0.5 me-2 mb-2
+                                    dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none
+                                    dark:focus:ring-blue-800">
+                                    <mat-icon>
+                                        add
+                                    </mat-icon>
+                                </button>
+                            }
+                            
+                            
+                        </th>
+
+                        <td mat-cell *matCellDef="let element" >
+                            <div class="flex space-around">
+
+                                @if(srvAuth.userActualS().rol === 1) {
+                                    <button matMiniFab (click)="onEditar(element.id)" 
+                                        class="flex focus:outline-none !text-white !bg-yellow-400 hover:!bg-yellow-500 focus:ring-4 focus:!ring-yellow-300 font-medium rounded-lg text-sm px-3 py-1 mx-2  dark:focus:!ring-yellow-900">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+
+                                    <button matMiniFab (click)="onEliminar(element.id)"
+                                        class="flex focus:outline-none !text-white !bg-red-700 hover:!bg-red-800 focus:ring-4 focus:!ring-red-300 font-medium rounded-lg text-sm px-3 py-1 mx-2 dark:!bg-red-600 dark:hover:!bg-red-700 dark:focus:!ring-red-900">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                }
+                            <button matMiniFab (click)="onInfo(element.id)"
+                            class=" flex !text-white !bg-blue-700 hover:!bg-blue-800 focus:ring-4 focus:!ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 mx-2 dark:!bg-blue-600 dark:hover:!bg-blue-700 focus:outline-none dark:focus:!ring-blue-800">
+                                <mat-icon>info</mat-icon>
+                            </button>
+
+                            
+                            </div>
+                        </td>
+
+                    </ng-container>
+
+                </thead>
+
+                <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+                <tr mat-row *matRowDef="let row;columns: columnas"></tr>
+
+                <tbody>
+                    
+                </tbody>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[1, 5, 10]" showFirstLastButtons aria-label="Select page of periodic element">
+
+            </mat-paginator>
+
+        </mat-card-content>
+
+        <mat-card-footer class="bg-gray-200 h-15 flex items-center justify-end">
+            <button (click)="onImprimir()" matButton="filled" class="me-3"><mat-icon>printer</mat-icon>Imprimir</button>
+            <button routerLink="/home" matButton="filled" class="!bg-red-600"><mat-icon>close</mat-icon>Cerrar</button>
+        </mat-card-footer>
+    </div>
+</mat-card>

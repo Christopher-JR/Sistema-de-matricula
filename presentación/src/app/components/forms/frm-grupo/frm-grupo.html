@@ -1,0 +1,105 @@
+<h2 mat-dialog-title class="text-center">Formulario Grupo<h2>
+<mat-dialog-content>
+    <form id="miFormulario" [formGroup]="myForm" (ngSubmit)="onGuardar();">
+        <div class="flex flex-col me-3">
+
+            <mat-form-field>
+                <mat-label>Id Curso</mat-label>
+                <input formControlName="idCurso" matInput type="text">
+            </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Id Profesor</mat-label>
+                    <input formControlName="idProfesor" matInput>
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>Fecha Inicio</mat-label>
+                    <input formControlName="fechaInicio" matInput type="text">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Fecha Fin</mat-label>
+                    <input formControlName="fechaFin" matInput type="text">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Horario</mat-label>
+                    <input formControlName="horario" matInput type="text">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Aula</mat-label>
+                    <input formControlName="aula" matInput type="text">
+                </mat-form-field>
+
+                @if(F['idCurso'].invalid && F['idCurso'].touched){
+                    @if(F['idCurso'].errors!['required']) {
+                        <small class="text-red-600">El ID del curso es obligatorio.</small>
+                    }
+                    @if(F['idCurso'].errors!['pattern']) {
+                        <small class="text-red-600">El ID del curso solo puede contener números.</small>
+                    }
+                }
+
+                @if(F['idProfesor'].invalid && F['idProfesor'].touched){
+                    @if(F['idProfesor'].errors!['required']) {
+                        <small class="text-red-600">El ID del profesor es obligatorio.</small>
+                    }
+                    @if(F['idProfesor'].errors!['minlength'] || F['idProfesor'].errors!['maxlength']) {
+                        <small class="text-red-600">El ID del profesor debe tener entre 2 y 15 caracteres.</small>
+                    }
+                    @if(F['idProfesor'].errors!['pattern']) {
+                        <small class="text-red-600">El ID del profesor solo puede contener letras y números.</small>
+                    }
+                }
+
+                @if(F['fechaInicio'].invalid && F['fechaInicio'].touched){
+                    @if(F['fechaInicio'].errors!['required']) {
+                        <small class="text-red-600">La fecha de inicio es obligatoria.</small>
+                    }
+                    @if(F['fechaInicio'].errors! ['maxlength']) {
+                        <small class="text-red-600">La fecha no debe tener mas de 10 caracteres.</small>
+                    }
+                }
+
+                @if(F['fechaFin'].invalid && F['fechaFin'].touched){
+                    @if(F['fechaFin'].errors!['required']) {
+                        <small class="text-red-600">La fecha fin es obligatoria.</small>
+                    }
+                    @if(F['fechaInicio'].errors! ['maxlength']) {
+                        <small class="text-red-600">La fecha no debe tener mas de 10 caracteres.</small>
+                    }
+                }
+
+                @if(F['horario'].invalid && F['horario'].touched){
+                    @if(F['horario'].errors!['required']) {
+                        <small class="text-red-600">El horario es obligatorio.</small>
+                    }
+                    @if(F['horario'].errors!['minlength'] || F['horario'].errors!['maxlength']) {
+                        <small class="text-red-600">El horario debe tener entre 5 y 100 caracteres.</small>
+                    }
+                }
+
+                @if(F['aula'].invalid && F['aula'].touched){
+                    @if(F['aula'].errors!['minlength']) {
+                        <small class="text-red-600">El aula debe tener al menos 2 caracteres.</small>
+                    }
+                    @if(F['aula'].errors!['maxlength']) {
+                        <small class="text-red-600">El aula no debe exceder los 50 caracteres.</small>
+                    }
+                }
+
+               
+
+        </div>
+        <input type="hidden" formControlName="id">
+
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button type="submit" form="miFormulario" mat-button><mat-icon>save</mat-icon>Guardar</button>
+    <button mat-button [mat-dialog-close]="false"><mat-icon>cancel</mat-icon>cerrar</button>
+</mat-dialog-actions>
