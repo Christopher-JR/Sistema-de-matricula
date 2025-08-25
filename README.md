@@ -12,8 +12,10 @@ Este es un proyecto full-stack diseñado para la gestión de matrículas de estu
 
     ⚙️ Instrucciones de Instalación y Uso
       - Clonar el repositorio
-      - Ejecutar los contenedores de Docker. Este paso creará el entorno de ejecución para el backend (PHP) y la base de datos (MySQL). Comando: docker-compose up --build
-      - Una vez que los servicios de Docker estén en funcionamiento, navega a la carpeta del frontend y crea la carpeta node_modules instalando las dependencias necesarias. Comando: cd             presentacion/, npm install
+      - Ejecutar los contenedores de Docker. Este paso creará el entorno de ejecución para el backend (PHP) y la base de datos (MySQL). 
+        Comando: docker-compose up --build
+      - Una vez que los servicios de Docker estén en funcionamiento, navega a la carpeta del frontend y crea la carpeta node_modules 
+        instalando las dependencias necesarias. Comando: cd presentacion/, npm install
       - Abre tu navegador y navega a http://localhost:8080
 
     📧 Contacto
